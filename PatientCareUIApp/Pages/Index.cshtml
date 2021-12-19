@@ -1,0 +1,38 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Patient Care</h1>
+   
+    <table border="1">
+        <tr>
+            <th width="50">Id
+            
+            
+            </th>
+            <th width="50">Title</th>
+            <th width="200">Patient Name</th>
+            <th width="200">User Name</th>
+            <th width="100"></th>
+        </tr>
+        @foreach (var cr in Model.CareRecords)
+        {
+        <tr>
+            <td>@cr.Id</td>
+            <td>@cr.Title</td>
+            <td>@cr.PatientName</td>
+            <td>@cr.UserName</td>
+            <td><a asp-page="Forms/AddUpdateCareRecord" asp-route-Id="@cr.Id">Edit</a></td>
+        </tr>
+        }
+    </table>
+
+    <div id="divErrorMsg" class="text-danger">@Model.PageErrorMessage</div>
+
+
+
+
+</div>

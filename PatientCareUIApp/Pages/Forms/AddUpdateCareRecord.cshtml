@@ -1,0 +1,99 @@
+﻿@page
+@model PatientCareUIApp.Forms.AddUpdateCareRecordModel
+@{
+    ViewData["Title"] = @Model.PageMode + " Care Record";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function()
+    {    
+        /* Function to display certain fields if the care record is marked as completed */
+        function toggleCompletedFields(checked)
+        {
+            if (checked == true)
+                {
+                    $(".CompletedFields").show();
+                }
+            else
+                {
+                    $(".CompletedFields").hide();
+                }
+        }
+
+        // bind chkComplete Change event to function
+        $("#chkComplete").change(function()
+            {
+                toggleCompletedFields(this.checked);
+            });
+
+       // call this to set up the fields correctly depending on state of Completed checkbox
+       toggleCompletedFields($("#chkComplete").is(":checked"));   
+
+    });
+    
+        
+
+</script>
+
+<h1>@Model.PageMode Care Record</h1>
+
+<form id="frmAdd" method="post">
+    <table>
+        <tr>
+            <td><label asp-for="CareRecord.Title"></label></td>
+            <td><input type="text" asp-for="CareRecord.Title" /></td>
+            <td><span asp-validation-for="CareRecord.Title" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.PatientName"></label></td>
+            <td><input type="text" asp-for="CareRecord.PatientName" /></td>
+            <td><span asp-validation-for="CareRecord.PatientName" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.UserName"></label></td>
+            <td><input type="text" asp-for="CareRecord.UserName" /></td>
+            <td><span asp-validation-for="CareRecord.UserName" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.ActualStartDateTime"></label></td>
+            <td><input class="form-control" asp-for="CareRecord.ActualStartDateTime" /></td>
+            <td><span asp-validation-for="CareRecord.ActualStartDateTime" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.TargetDateTime"></label></td>
+            <td><input class="form-control" asp-for="CareRecord.TargetDateTime" /></td>
+            <td><span asp-validation-for="CareRecord.TargetDateTime" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.Reason"></label></td>
+            <td><input type="text" asp-for="CareRecord.Reason" /></td>
+            <td><span asp-validation-for="CareRecord.Reason" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.Action"></label></td>
+            <td><input type="text" asp-for="CareRecord.Action" /></td>
+            <td><span asp-validation-for="CareRecord.Action" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CareRecord.Completed"></label></td>
+            <td><input id="chkComplete" asp-for="CareRecord.Completed" /></td>
+            <td> </td>
+        </tr>
+        <tr class="CompletedFields" style="display:none">
+            <td><label asp-for="CareRecord.EndDateTime"></label></td>
+            <td><input class="form-control" asp-for="CareRecord.EndDateTime" /></td>
+            <td><span asp-validation-for="CareRecord.EndDateTime" class="text-danger"></span></td>
+        </tr>
+        <tr class="CompletedFields" style="display:none">
+            <td><label asp-for="CareRecord.Outcome"></label></td>
+            <td><input type="text" asp-for="CareRecord.Outcome" /></td>
+            <td><span asp-validation-for="CareRecord.Outcome" class="text-danger"></span></td>
+        </tr>
+    </table>
+    <div id="divErrorMsg" class="text-danger">@Model.PageErrorMessage</div>
+    <button id="btnSubmit" type="submit">Submit</button>
+
+</form>
+
